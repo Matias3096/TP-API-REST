@@ -9,14 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-
 public class TpApiRestApplication {
 
-	public static void main(String[] args) {
-
-
-
-        	}
+    public static void main(String[] args) {
+        // Sin esto no funciona springBoot
+        SpringApplication.run(TpApiRestApplication.class, args);
+    }
 
     @Bean
     CommandLineRunner initData(ProductoService serv) {

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequestMapping("/api/productos")
 @RequiredArgsConstructor
@@ -54,7 +56,10 @@ public class ProductoController {
     @PatchMapping("/{id}/stock")
     public ResponseEntity<ProductoResponseDTO> patchStock(@PathVariable Long id,
                                                           @Valid @RequestBody ActualizarStockDTO dto) {
-        Producto p = serv.obtenerPorId(id).orElseThrow(() -> new ProductoNotFoundException(id));
+        Producto p = serv.obtenerPorId(id)
+                .orElseThrow(() -> new ProductoNotFoundException(id));
+        Producto actualizado = serv.actualizarStock(id, dto.getStock());
+        return ResponseEntity.ok(serv.toResponse(actualizado));
     }
 
     @DeleteMapping("/{id}")
